@@ -11,17 +11,13 @@ import SwiftUI
 
 
 
-struct GridView<DataModel: GridViewDataModel>: View  {
-
+public struct GridView<DataModel: GridViewDataModel>: View  {
     @EnvironmentObject
     var dataModel: DataModel
-    
-    
     @State
     private var isAddingPhoto = false
     @State
     private var isEditing = false
-    
     @State
     private var gridColumns = Array(repeating: GridItem(.flexible()), count: 3)
     @State
@@ -33,7 +29,7 @@ struct GridView<DataModel: GridViewDataModel>: View  {
     
     
     
-    var body: some View {
+    public var body: some View {
         VStack {
             if isEditing {
                 ColumnStepper(title: columnsTitle, range: 1 ... 8, columns: $gridColumns)
