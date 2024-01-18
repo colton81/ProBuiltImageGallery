@@ -27,7 +27,9 @@ public struct GridView<DataModel: GridViewDataModel>: View  {
         gridColumns.count > 1 ? "\(gridColumns.count) Columns" : "1 Column"
     }
     
-    
+    public init(){
+        
+    }
     
     public var body: some View {
         VStack {
