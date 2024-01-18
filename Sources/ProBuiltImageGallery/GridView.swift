@@ -78,7 +78,7 @@ public struct GridView<DataModel: GridViewDataModel>: View  {
         .navigationBarTitle("Image Gallery")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $isAddingPhoto) {
-            PhotoPicker<DataModel>()
+            PhotoPicker<DataModel>().environmentObject(dataModel)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -160,15 +160,14 @@ struct MyItem: Identifiable {
 struct DemoView: View {
     @StateObject var model = MyDataModel()
     @State var showSheet:Bool = false
+    @State var path: NavigationPath = .init()
     var body: some View {
-        NavigationStack {
+        NavigationStack(path:$path) {
             Button("ShowSheet"){
-                showSheet.toggle()
-            }
+                path.append("1")
             
-        }
-        .sheet(isPresented: $showSheet, content: {
-            NavigationStack{
+            }
+            .navigationDestination(for: String.self){value in
                 GridView(model: model)
                     .task{
                         model.ids = [1,2]
@@ -176,7 +175,8 @@ struct DemoView: View {
                         
                     }
             }
-        })
+        }
+        
     }
 }
 
