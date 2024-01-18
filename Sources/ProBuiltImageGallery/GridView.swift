@@ -12,7 +12,7 @@ import SwiftUI
 
 
 public struct GridView<DataModel: GridViewDataModel>: View  {
-    @EnvironmentObject
+    @ObservedObject
     var dataModel: DataModel
     @State
     private var isAddingPhoto = false
@@ -27,8 +27,8 @@ public struct GridView<DataModel: GridViewDataModel>: View  {
         gridColumns.count > 1 ? "\(gridColumns.count) Columns" : "1 Column"
     }
     
-    public init(){
-        
+    public init(model: DataModel){
+        self.dataModel = model
     }
     
     public var body: some View {
@@ -159,14 +159,24 @@ struct MyItem: Identifiable {
 
 struct DemoView: View {
     @StateObject var model = MyDataModel()
+    @State var showSheet:Bool = false
     var body: some View {
         NavigationStack {
-            GridView<MyDataModel>().environmentObject(model)
-                .task{
-                    model.ids = [1,2]
-                    await model.fetchThumbnails()
-                }
+            Button("ShowSheet"){
+                showSheet.toggle()
+            }
+            
         }
+        .sheet(isPresented: $showSheet, content: {
+            NavigationStack{
+                GridView(model: model)
+                    .task{
+                        model.ids = [1,2]
+                        await model.fetchThumbnails()
+                        
+                    }
+            }
+        })
     }
 }
 
