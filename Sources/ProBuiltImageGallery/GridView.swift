@@ -38,7 +38,6 @@ public struct GridView<DataModel: GridViewDataModel>: View  {
                     .padding()
             }
             ScrollView {
-                
                     LazyVGrid(columns: gridColumns) {
                         ForEach(dataModel.items) { item in
                             GeometryReader { geo in
@@ -52,9 +51,7 @@ public struct GridView<DataModel: GridViewDataModel>: View  {
                                 if isEditing {
                                     Button {
                                         withAnimation {
-                                         
                                                 dataModel.deleteImage(item)
-                                            
                                         }
                                     } label: {
                                         Image(systemName: "xmark.square.fill")
@@ -68,9 +65,7 @@ public struct GridView<DataModel: GridViewDataModel>: View  {
                         }
                     }
                     .padding()
-                
             }
-            
         }
         .refreshable {
             await dataModel.refresh()
