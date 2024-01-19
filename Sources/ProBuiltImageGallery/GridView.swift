@@ -38,7 +38,7 @@ public struct GridView<DataModel: GridViewDataModel>: View  {
                     .padding()
             }
             ScrollView {
-     
+                
                     LazyVGrid(columns: gridColumns) {
                         ForEach(dataModel.items) { item in
                             GeometryReader { geo in
@@ -105,6 +105,7 @@ public struct GridView<DataModel: GridViewDataModel>: View  {
 
 
 class MyDataModel: GridViewDataModel, ObservableObject {
+    @Published var image:Image = .init("")
     @Published var ids:[Int] = []
     @Published var items: [MyItem] = []
     @Published var didFetch:Bool = false
@@ -126,6 +127,10 @@ class MyDataModel: GridViewDataModel, ObservableObject {
         }
     }
     func postImage(image: Data, type: ImageType, url: URL) async {
+        if let uiImage = UIImage(data: image){
+            self.image = Image(uiImage: uiImage)
+        }
+        
         print(type)
         print(url)
     }
@@ -164,6 +169,7 @@ struct DemoView: View {
     @State var path: NavigationPath = .init()
     var body: some View {
         NavigationStack(path:$path) {
+            model.image
             Button("ShowSheet"){
                 path.append("1")
             

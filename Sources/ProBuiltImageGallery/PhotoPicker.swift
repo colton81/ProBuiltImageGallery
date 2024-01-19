@@ -60,6 +60,7 @@ struct PhotoPicker<DataModel: GridViewDataModel>: UIViewControllerRepresentable 
                     if let imageData = try? Data(contentsOf: url){
                         Task { @MainActor [dataModel = self.parent.dataModel] in
                             await dataModel.postImage(image: imageData, type: ImageType.from(url: url), url: url)
+                            
                         }
                     }
                 }

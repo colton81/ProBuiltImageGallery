@@ -18,7 +18,7 @@ struct GridItemView<Loader>: View where Loader: View {
                 if let image = phase.image {
                     image // Displays the loaded image.
                         .resizable()
-                        .scaledToFill()
+                        .scaledToFit()
                 } else if phase.error != nil {
                     VStack(spacing: 10) {
                         Label("", systemImage: "exclamationmark.triangle.fill")
