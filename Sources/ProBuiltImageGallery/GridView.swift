@@ -125,8 +125,9 @@ class MyDataModel: GridViewDataModel, ObservableObject {
             
         }
     }
-    func postImage(image: Data) async {
-        
+    func postImage(image: Data, type: ImageType, url: URL) async {
+        print(type)
+        print(url)
     }
     
     func deleteImage(_ item: MyItem) {

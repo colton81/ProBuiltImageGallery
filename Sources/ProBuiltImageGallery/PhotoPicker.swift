@@ -58,11 +58,9 @@ struct PhotoPicker<DataModel: GridViewDataModel>: UIViewControllerRepresentable 
                     print("Error loading file representation: \(error.localizedDescription)")
                 } else if let url = url {
                     if let imageData = try? Data(contentsOf: url){
-                        
                         Task { @MainActor [dataModel = self.parent.dataModel] in
-                            await dataModel.postImage(image: imageData)
+                            await dataModel.postImage(image: imageData, type: ImageType.from(url: url), url: url)
                         }
-                        
                     }
                 }
                 
