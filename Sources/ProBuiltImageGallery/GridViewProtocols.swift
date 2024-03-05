@@ -10,6 +10,7 @@ public enum ImageType {
     case heic
     case jpeg
     case png
+    case pdf
     case gif
     case tiff
     case bmp
@@ -26,6 +27,8 @@ public enum ImageType {
             return .jpeg
         case "png":
             return .png
+        case "pdf":
+            return .pdf
         case "gif":
             return .gif
         case "tiff", "tif":
